@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
-mongoose.connect('mongodb+srv://omnistack09:omnistack@omnistack09.p3vai.mongodb.net/omnistack09?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://omnistack:omnistack@omnistack09.p3vai.mongodb.net/omnistack09?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })

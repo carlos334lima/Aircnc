@@ -1,5 +1,7 @@
 const express = require("express");
 
+const DevController = require('./controllers/DevControllers')
+
 const routes = express.Router();
 
 /* 
@@ -11,5 +13,7 @@ const routes = express.Router();
 routes.get("/users/:id", (req, res) => {
   res.json({ message: "hellooo" });
 });
+
+routes.post("/users", DevController.store);
 
 module.exports = routes;
