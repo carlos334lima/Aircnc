@@ -1,6 +1,6 @@
 const express = require("express");
 
-const DevController = require('./controllers/DevControllers')
+const UserController = require('./controllers/UserControllers')
 
 const routes = express.Router();
 
@@ -10,10 +10,6 @@ const routes = express.Router();
   REQUEST BODY: Conteúdo na hora de criar/ editar (JSON)
 */
 
-routes.get("/users/:id", (req, res) => {
-  res.json({ message: "hellooo" });
-});
-
-routes.post("/users", DevController.store);
+routes.post("/sessions", UserController.store);
 
 module.exports = routes;
