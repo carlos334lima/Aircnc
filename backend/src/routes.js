@@ -1,21 +1,28 @@
-const express = require("express");
-const multer = require('multer');
+const express = require('express')
 
-const uploadConfig = require('./config/upload');
+const multer = require('multer')
+const uploadConfig = require('./config/upload.js')
 
-const UserController = require('./controllers/UserControllers')
-const SpotController = require('./controllers/SpotControllers')
+const SessionController = require('./controllers/SessionController.js')
+const SpotController = require('./controllers/SpotController.js')
+const DashboardController = require('./controllers/DashboardController.js')
+const BookingController = require('./controllers/BookingController.js')
+const ApprovalController = require('./controllers/ApprovalController.js')
+const RejectionController = require('./controllers/RejectionController.js')
 
-const routes = express.Router();
-const upload = multer(uploadConfig);
+const routes = express.Router()
+const uploadMiddleware = multer(uploadConfig)
 
-/* 
-  QUERY PARAMS: Filtros e paginação; (Get)
-  ROUTE PARAMS: Identificar recursos (atualizar/deletando)
-  REQUEST BODY: Conteúdo na hora de criar/ editar (JSON)
-*/
+routes.post('/sessions', SessionController.store)
 
-routes.post("/sessions", UserController.store);
-routes.post("/spots", upload.single('thumbnail'), SpotController.store);
+routes.get('/spots', SpotController.index)
+routes.post('/spots', uploadMiddleware.single('thumbnail'), SpotController.store)
 
-module.exports = routes;
+routes.get('/dashboard', DashboardController.show)
+
+routes.post('/spots/:spot_id/bookings', BookingController.store)
+
+routes.post('/bookings/:booking_id/approvals', ApprovalController.store)
+routes.post('/bookings/:booking_id/rejections', RejectionController.store)
+
+module.exports = routes

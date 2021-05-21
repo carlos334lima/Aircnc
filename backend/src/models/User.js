@@ -1,11 +1,7 @@
-//Abstração do banco de dados
+const mongoose = require('mongoose')
 
-const { Schema, model } = require("mongoose");
-
-const UserSchema = new Schema({
-
-  email: String
-
+const UserSchema = new mongoose.Schema({
+    email: String
 })
 
-module.exports = model('Users', UserSchema); 
+module.exports = mongoose.model('User', UserSchema)

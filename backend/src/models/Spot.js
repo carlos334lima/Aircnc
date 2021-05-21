@@ -1,16 +1,22 @@
-//Abstração do banco de dados
+const mongoose = require('mongoose')
 
-const { Schema, model } = require("mongoose");
+const SpotSchema = new mongoose.Schema({
+    thumbnail: String,
+    company: String,
+    price: Number,
+    techs: [String],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
+}, {
+    toJSON: {
+        virtuals: true
+    }
+})
 
-const SpotSchema = new Schema({
-  thumbnail: String,
-  company: String,
-  price: Number,
-  techs: [String],
-  user: {
-    type: Schema.Types.ObjectId,        //Salvando o ID do usuário
-    ref: 'User'                         //Referência de qual modo é essa operação
-  },
-});
+SpotSchema.virtual('thumbnail_url').get(function() {
+    return `http://192.168.1.71:3333/files/${this.thumbnail}`
+})
 
-module.exports = model("Spot", SpotSchema);
+module.exports = mongoose.model('Spot', SpotSchema)
